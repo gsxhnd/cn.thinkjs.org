@@ -421,7 +421,7 @@ exports.model = {
     parser: sql => {
       // 这里会把当前要执行的 SQL 传递进来
       const sqlLower = sql.toLowerCase();
-      if(sql.indexOf('select ') === 0) {
+      if (sqlLower.startWith('select ')) {
         return {
           host: '',
           port: ''
@@ -626,13 +626,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList(){
     return this.setRelation(false).select();
   }
@@ -645,13 +638,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList2(){
     return this.setRelation('comment').select();
   }
@@ -664,13 +650,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList2(){
     return this.setRelation('comment', false).select();
   }
@@ -683,13 +662,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList2(){
     return this.setRelation(true).select();
   }
@@ -702,13 +674,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList2(page){
     // 动态设置 comment 的分页
     return this.setRelation('comment', {page}).select();
@@ -1874,7 +1839,7 @@ module.exports = class extends think.Controller {
 
 ```js
 module.exports = class extends think.Model{
-  // 获取字段值之和
+  // 获取总条数
   getScoreCount() {
     // SELECT COUNT(score) AS think_count FROM `test_d` LIMIT 1
     return this.count('score');
